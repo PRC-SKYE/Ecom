@@ -1,0 +1,23 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "Shoping application build using MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "start":"node backend/server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kartikeysemwal/E-Commerce.git"
+  },
+  "author": "Kartikey Semwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kartikeysemwal/E-Commerce/issues"
+  },
+  "homepage": "https://github.com/kartikeysemwal/E-Commerce#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

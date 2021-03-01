@@ -2,30 +2,26 @@ const mongoose = require("mongoose");
 
 const reviewSchema = mongoose.Schema(
     {
-        name: {
-            type: String,
+        name: { type: String, required: true },
+        rating: { type: Number, required: true },
+        comment: { type: String, required: true },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
-        },
-        rating: {
-            type: Number,
-            required: true,
-        },
-        comment: {
-            type: String,
-            required: true,
+            ref: "User",
         },
     },
     {
-        timeStamps: true,
+        timestamps: true,
     }
 );
 
 const productSchema = mongoose.Schema(
     {
         user: {
-            type: mongoose.Schema.Types.ObjectID,
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
-            ref: "Product",
+            ref: "User",
         },
         name: {
             type: String,
@@ -70,7 +66,7 @@ const productSchema = mongoose.Schema(
         },
     },
     {
-        timeStamps: true,
+        timestamps: true,
     }
 );
 

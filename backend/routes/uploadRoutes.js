@@ -1,32 +1,40 @@
 const path = require("path");
 const express = require("express");
+const dotenv = require("dotenv");
+const cloudinary = require("cloudinary");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 
+dotenv.config();
+
+const cloud = cloudinary.v2;
 const router = express.Router();
 
-const storage = multer.diskStorage({
-    destination(req, file, cb) {
-        cb(null, "uploads/");
-    },
-    filename(req, file, cb) {
-        cb(
-            null,
-            `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-        );
+cloud.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloud,
+    params: {
+        folder: "upload_images",
+        public_id: (req, file) =>
+            `${file.originalname.split(".")[0]}-${Date.now()}`,
     },
 });
 
 function checkFileType(file, cb) {
     const filetypes = /jpg|jpeg|png/;
     const extname = filetypes.test(
-        path.extname(file.originalname).toLowerCase()
+        path.extname(file.originalname).toLocaleLowerCase()
     );
     const mimetype = filetypes.test(file.mimetype);
-
     if (extname && mimetype) {
         return cb(null, true);
     } else {
-        cb("Images only!");
+        cb(null, false);
     }
 }
 
@@ -38,7 +46,7 @@ const upload = multer({
 });
 
 router.post("/", upload.single("image"), (req, res) => {
-    res.send(`/${req.file.path}`);
+    res.send(req.file.path);
 });
 
 module.exports = router;

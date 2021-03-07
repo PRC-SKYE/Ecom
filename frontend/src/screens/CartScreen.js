@@ -63,7 +63,7 @@ const CartScreen = ({ match, location, history }) => {
                                             {item.name}
                                         </Link>
                                     </Col>
-                                    <Col md={2}>${item.price}</Col>
+                                    <Col md={2}>&#8377;{item.price}</Col>
                                     <Col md={2}>
                                         <Form.Control
                                             as="select"
@@ -122,7 +122,7 @@ const CartScreen = ({ match, location, history }) => {
                                 )}
                                 ) items
                             </h2>
-                            $
+                            &#8377;
                             {cartItems
                                 .reduce(
                                     (acc, item) => acc + item.qty * item.price,
